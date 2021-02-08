@@ -32,19 +32,46 @@ enum class ESunlightType : uint8
 	Shade		UMETA(DisplayName = "Shade")
 };
 
+UENUM(BlueprintType)
+enum class EGrowthStage : uint8
+{
+	Sapling		UMETA(DisplayName = "Sapling"),
+	Medium		UMETA(DisplayName = "Medium"),
+	Grown		UMETA(DisplayName = "Grown")
+};
+
 USTRUCT(BlueprintType)
 struct FSoilData : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	UStaticMeshComponent* mesh;
+	UStaticMesh* mesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ESoilType soil_type;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ESunlightType sunlight_type;
 };
+
+USTRUCT(BlueprintType)
+struct FPlantData : public FTableRowBase
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString name;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<UStaticMesh*> mesh_states;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ESoilType compatible_soil;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	ESunlightType compatible_sunlight;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int number_of_stages;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float plant_duration;
+}; 
 
 UCLASS()
 class WHOLESOMEGARDENING_API AGardeningData : public AActor
