@@ -55,6 +55,19 @@ struct FSoilData : public FTableRowBase
 };
 
 USTRUCT(BlueprintType)
+struct FItemData : public FTableRowBase
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString name;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EItemType item_type;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterialInstance* icon;
+};
+
+USTRUCT(BlueprintType)
 struct FPlantData : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
