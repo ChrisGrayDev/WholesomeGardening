@@ -68,6 +68,19 @@ struct FItemData : public FTableRowBase
 };
 
 USTRUCT(BlueprintType)
+struct FPlaceableObjData : public FTableRowBase
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FString name;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMesh* mesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int tile_size;
+};
+
+USTRUCT(BlueprintType)
 struct FPlantData : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
@@ -84,6 +97,8 @@ struct FPlantData : public FTableRowBase
 	int number_of_stages;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float plant_duration;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int tile_size;
 }; 
 
 UCLASS()
