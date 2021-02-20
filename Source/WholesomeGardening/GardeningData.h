@@ -26,6 +26,16 @@ enum class EItemType : uint8
 };
 
 UENUM(BlueprintType)
+enum class EItemCategory : uint8
+{
+	Fruit		UMETA(DisplayName = "Fruit"),
+	Vegetable	UMETA(DisplayName = "Vegetable"),
+	Seed		UMETA(DisplayName = "Seed"),
+	Soil		UMETA(DisplayName = "Soil"),
+	Decoration	UMETA(DisplayName = "Decoration")
+};
+
+UENUM(BlueprintType)
 enum class ESunlightType : uint8
 {
 	Sunny		UMETA(DisplayName = "Sunny"),
@@ -64,7 +74,20 @@ struct FItemData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EItemType item_type;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EItemCategory item_category;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMaterialInstance* icon;
+};
+
+USTRUCT(BlueprintType)
+struct FInventoryItem
+{
+	GENERATED_USTRUCT_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FItemData item_data;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int quantity;
 };
 
 USTRUCT(BlueprintType)
