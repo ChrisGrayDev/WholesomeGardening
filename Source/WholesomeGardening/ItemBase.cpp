@@ -25,3 +25,9 @@ void AItemBase::Tick(float DeltaTime)
 
 }
 
+void AItemBase::PopulateItem(FItemData item_data)
+{
+	item_name = item_data.name;
+	item_type = item_data.item_type;
+}
+
