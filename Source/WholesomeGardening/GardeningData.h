@@ -32,6 +32,7 @@ enum class EItemCategory : uint8
 	Vegetable	UMETA(DisplayName = "Vegetable"),
 	Seed		UMETA(DisplayName = "Seed"),
 	Soil		UMETA(DisplayName = "Soil"),
+	Flower		UMETA(DisplayName = "Flower"),
 	Decoration	UMETA(DisplayName = "Decoration")
 };
 

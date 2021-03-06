@@ -35,7 +35,7 @@ public:
 	EGrowthStage current_growth_stage;
 
 	//Init
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void InitPlant(FPlantData new_data);
 
 	//Growth
