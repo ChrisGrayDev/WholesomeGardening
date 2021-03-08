@@ -10,13 +10,13 @@ AAmbientSoundTrigger::AAmbientSoundTrigger()
 	PrimaryActorTick.bCanEverTick = true;
 
 	audio_comp = CreateDefaultSubobject<UAudioComponent>(TEXT("Audio comp"));
-	audio_comp->SetVolumeMultiplier(volume_mod);
 }
 
 // Called when the game starts or when spawned
 void AAmbientSoundTrigger::BeginPlay()
 {
 	Super::BeginPlay();
+	audio_comp->SetVolumeMultiplier(volume_mod);
 	StartLoop();
 }
 
