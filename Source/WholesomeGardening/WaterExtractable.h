@@ -26,5 +26,15 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	bool IsEmpty();
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	bool IsFull();
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void TeleportToPoint(FVector point);
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	void ExtractOneCharge();
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	bool IsFinishedExtracting();
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void RefillOneCharge();
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	bool IsFinishedRecharging();
 };

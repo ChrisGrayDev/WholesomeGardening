@@ -25,8 +25,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Mesh")
-	UStaticMeshComponent* mesh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Container")
 	bool is_container_infinite;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Container")
@@ -34,10 +32,43 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Container")
 	int current_number_of_charges;
 
-	UFUNCTION(BlueprintImplementableEvent)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
+	float extraction_time;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
+	float fill_time;
+	UPROPERTY(BlueprintReadWrite)
+	bool is_extracting;
+	UPROPERTY(BlueprintReadWrite)
+	bool is_refilling;
+
+	UFUNCTION()
+	void Extract();
+	UFUNCTION()
+	void Refill();
+
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	bool IsEmpty();
 	virtual bool IsEmpty_Implementation();
-	UFUNCTION(BlueprintImplementableEvent)
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	bool IsFull();
+	virtual bool IsFull_Implementation();
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	void ExtractOneCharge();
 	virtual void ExtractOneCharge_Implementation();
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void TeleportToPoint(FVector point);
+	virtual void TeleportToPoint_Implementation(FVector point);
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	bool IsFinishedExtracting();
+	virtual bool IsFinishedExtracting_Implementation();
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	void RefillOneCharge();
+	virtual void RefillOneCharge_Implementation();
+	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	bool IsFinishedRecharging();
+	virtual bool IsFinishedRecharging_Implementation();
+
+private:
+	UPROPERTY()
+	float last_number_of_charges;
 };
