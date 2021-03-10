@@ -7,6 +7,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "WaterExtractable.h"
 #include "GardeningData.h"
+#include "Plant.h"
 #include "WaterContainer.generated.h"
 
 UCLASS()
@@ -36,6 +37,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FItemData item_data;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Offset")
+	FVector offset;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
 	float extraction_time;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
@@ -52,6 +56,8 @@ public:
 	void Extract();
 	UFUNCTION()
 	void Refill();
+	UFUNCTION(BlueprintCallable)
+	void SetTargetPlant(APlant* plant);
 
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	bool IsEmpty();
@@ -74,4 +80,8 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	bool IsFinishedRecharging();
 	virtual bool IsFinishedRecharging_Implementation();
+
+private:
+	UPROPERTY()
+	APlant* target_plant;
 };

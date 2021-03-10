@@ -14,7 +14,7 @@ AWaterContainer::AWaterContainer()
 void AWaterContainer::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	target_plant = nullptr;
 }
 
 // Called every frame
@@ -27,12 +27,24 @@ void AWaterContainer::Extract()
 {
 	current_number_of_charges--;
 	is_extracting = false;
+
+	if (target_plant != nullptr)
+	{
+		if (!target_plant->IsWatered())
+			target_plant->StartGrowth();
+	}
 }
 
 void AWaterContainer::Refill()
 {
 	current_number_of_charges++;
 	is_refilling = false;
+}
+
+void AWaterContainer::SetTargetPlant(APlant* plant)
+{
+	if (plant != nullptr)
+		target_plant = plant;
 }
 
 bool AWaterContainer::IsEmpty_Implementation()
@@ -66,7 +78,7 @@ void AWaterContainer::ExtractOneCharge_Implementation()
 
 void AWaterContainer::TeleportToPoint_Implementation(FVector point)
 {
-	SetActorLocation(point);
+	SetActorLocation(point + offset);
 }
 
 bool AWaterContainer::IsFinishedExtracting_Implementation()
