@@ -6,6 +6,7 @@
 #include "GameFramework/Actor.h"
 #include "Components/StaticMeshComponent.h"
 #include "WaterExtractable.h"
+#include "GardeningData.h"
 #include "WaterContainer.generated.h"
 
 UCLASS()
@@ -32,6 +33,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Container")
 	int current_number_of_charges;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
+	FItemData item_data;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
 	float extraction_time;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
@@ -40,6 +44,9 @@ public:
 	bool is_extracting;
 	UPROPERTY(BlueprintReadWrite)
 	bool is_refilling;
+
+	UPROPERTY()
+	FTimerHandle extract_timer;
 
 	UFUNCTION()
 	void Extract();
@@ -67,8 +74,4 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
 	bool IsFinishedRecharging();
 	virtual bool IsFinishedRecharging_Implementation();
-
-private:
-	UPROPERTY()
-	float last_number_of_charges;
 };

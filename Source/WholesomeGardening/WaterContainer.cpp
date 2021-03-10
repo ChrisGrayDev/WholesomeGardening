@@ -21,36 +21,18 @@ void AWaterContainer::BeginPlay()
 void AWaterContainer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (is_extracting)
-		Extract();
 }
 
 void AWaterContainer::Extract()
 {
-	if (current_number_of_charges > last_number_of_charges - 1.0f)
-	{
-		current_number_of_charges -= GetWorld()->GetDeltaSeconds();
-
-	}
-	else
-	{
-		current_number_of_charges = last_number_of_charges - 1.0f;
-		is_extracting = false;
-	}
+	current_number_of_charges--;
+	is_extracting = false;
 }
 
 void AWaterContainer::Refill()
 {
-	if (current_number_of_charges < last_number_of_charges + 1.0f)
-	{
-		current_number_of_charges -= GetWorld()->GetDeltaSeconds();
-	}
-	else
-	{
-		current_number_of_charges = last_number_of_charges + 1.0f;
-		is_refilling = false;
-	}
+	current_number_of_charges++;
+	is_refilling = false;
 }
 
 bool AWaterContainer::IsEmpty_Implementation()
@@ -78,7 +60,8 @@ bool AWaterContainer::IsFull_Implementation()
 void AWaterContainer::ExtractOneCharge_Implementation()
 {
 	is_extracting = true;
-	last_number_of_charges = FMath::RoundToFloat(current_number_of_charges);
+	
+	GetWorld()->GetTimerManager().SetTimer(extract_timer, this, &AWaterContainer::Extract, extraction_time);
 }
 
 void AWaterContainer::TeleportToPoint_Implementation(FVector point)
@@ -94,7 +77,8 @@ bool AWaterContainer::IsFinishedExtracting_Implementation()
 void AWaterContainer::RefillOneCharge_Implementation()
 {
 	is_refilling = true;
-	last_number_of_charges = FMath::RoundToFloat(current_number_of_charges);
+	
+	GetWorld()->GetTimerManager().SetTimer(extract_timer, this, &AWaterContainer::Refill, fill_time);
 }
 
 bool AWaterContainer::IsFinishedRecharging_Implementation()

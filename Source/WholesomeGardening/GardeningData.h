@@ -21,8 +21,9 @@ enum class ESoilType : uint8
 UENUM(BlueprintType)
 enum class EItemType : uint8
 {
-	Plant		UMETA(DisplayName = "Plant"),
-	Object		UMETA(DisplayName = "Object")
+	Plant			UMETA(DisplayName = "Plant"),
+	Object			UMETA(DisplayName = "Object"),
+	WaterContainer	UMETA(DisplayName = "Water container")
 };
 
 UENUM(BlueprintType)
