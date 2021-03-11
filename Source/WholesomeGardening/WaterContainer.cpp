@@ -14,6 +14,7 @@ AWaterContainer::AWaterContainer()
 void AWaterContainer::BeginPlay()
 {
 	Super::BeginPlay();
+	start_loc = GetActorLocation();
 	target_plant = nullptr;
 }
 
@@ -25,8 +26,9 @@ void AWaterContainer::Tick(float DeltaTime)
 
 void AWaterContainer::Extract()
 {
-	current_number_of_charges--;
+	UE_LOG(LogTemp, Display, TEXT("Extracted water"));
 	is_extracting = false;
+	current_number_of_charges--;
 
 	if (target_plant != nullptr)
 	{
@@ -47,12 +49,17 @@ void AWaterContainer::SetTargetPlant(APlant* plant)
 		target_plant = plant;
 }
 
+void AWaterContainer::ReturnToPoint()
+{
+	SetActorLocation(start_loc);
+}
+
 bool AWaterContainer::IsEmpty_Implementation()
 {
 	if (is_container_infinite)
 		return false;
 
-	if (current_number_of_charges > 0)
+	if (current_number_of_charges <= 0)
 		return true;
 
 	return false;
@@ -71,6 +78,7 @@ bool AWaterContainer::IsFull_Implementation()
 
 void AWaterContainer::ExtractOneCharge_Implementation()
 {
+	UE_LOG(LogTemp, Display, TEXT("Starting extraction"));
 	is_extracting = true;
 	
 	GetWorld()->GetTimerManager().SetTimer(extract_timer, this, &AWaterContainer::Extract, extraction_time);
