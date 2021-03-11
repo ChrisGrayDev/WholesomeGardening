@@ -28,10 +28,12 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Mesh")
 	USkeletalMeshComponent* mesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
+	float time_before_teleport;
 	UPROPERTY()
-	FVector start_loc;
+	FTimerHandle teleport_timer;
 
 	UFUNCTION(BlueprintCallable)
-	void ReturnToPoint();
-
+	void StartTeleportBack();
 };

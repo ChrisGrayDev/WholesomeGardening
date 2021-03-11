@@ -11,7 +11,6 @@ AWateringCan::AWateringCan()
 void AWateringCan::BeginPlay()
 {
 	Super::BeginPlay();
-	start_loc = GetActorLocation();
 }
 
 void AWateringCan::Tick(float DeltaTime)
@@ -19,7 +18,7 @@ void AWateringCan::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 }
 
-void AWateringCan::ReturnToPoint()
+void AWateringCan::StartTeleportBack()
 {
-	SetActorLocation(start_loc);
+	GetWorld()->GetTimerManager().SetTimer(extract_timer, this, &AWateringCan::ReturnToPoint, time_before_teleport);
 }

@@ -34,6 +34,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Container")
 	int current_number_of_charges;
 
+	UPROPERTY()
+	FVector start_loc;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FItemData item_data;
 
@@ -59,25 +62,28 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetTargetPlant(APlant* plant);
 
-	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	UFUNCTION(BlueprintCallable)
+	void ReturnToPoint();
+
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	bool IsEmpty();
 	virtual bool IsEmpty_Implementation();
-	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	bool IsFull();
 	virtual bool IsFull_Implementation();
-	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void ExtractOneCharge();
 	virtual void ExtractOneCharge_Implementation();
-	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void TeleportToPoint(FVector point);
 	virtual void TeleportToPoint_Implementation(FVector point);
-	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	bool IsFinishedExtracting();
 	virtual bool IsFinishedExtracting_Implementation();
-	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	void RefillOneCharge();
 	virtual void RefillOneCharge_Implementation();
-	UFUNCTION(BlueprintCallable, BlueprintImplementableEvent)
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent)
 	bool IsFinishedRecharging();
 	virtual bool IsFinishedRecharging_Implementation();
 
