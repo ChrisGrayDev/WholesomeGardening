@@ -8,6 +8,7 @@
 #include "WaterExtractable.h"
 #include "GardeningData.h"
 #include "Plant.h"
+#include "Sound/SoundCue.h"
 #include "WaterContainer.generated.h"
 
 UCLASS()
@@ -26,6 +27,9 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundCue* sc_watering;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Container")
 	bool is_container_infinite;
