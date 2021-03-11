@@ -37,7 +37,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FItemData item_data;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Offset")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Offset")
 	FVector offset;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
