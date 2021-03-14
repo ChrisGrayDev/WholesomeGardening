@@ -100,7 +100,7 @@ struct FPlaceableObjData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FString name;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UStaticMesh* mesh;
+	UStaticMesh* meseh;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int tile_size;
 };

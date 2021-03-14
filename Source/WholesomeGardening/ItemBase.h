@@ -25,10 +25,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FString item_name;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EItemType item_type;
+	FItemData item_data;
 
 	UFUNCTION(BlueprintCallable)
-	void PopulateItem(FItemData item_data);
+	void PopulateItem(FItemData new_item_data);
 };
