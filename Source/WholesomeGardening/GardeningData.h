@@ -7,6 +7,8 @@
 #include "Engine/DataTable.h"
 #include "GardeningData.generated.h"
 
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSmokeBurst);
+
 UENUM(BlueprintType)
 enum class ESoilType : uint8
 {

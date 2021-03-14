@@ -21,34 +21,21 @@ void APlant::BeginPlay()
 void APlant::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if (IsWatered() && current_growth_stage != EGrowthStage::Grown)
-	{
-		ChangeGrowthStage();
-	}
 }
 
 void APlant::InitPlant(FPlantData new_data)
 {
 	plant_data = new_data;
 	st_mesh->SetStaticMesh(plant_data.mesh_states[0]);
+
+	OnSmokeBurst.Broadcast();
 }
 
-void APlant::ChangeGrowthStage()
+void APlant::StartGrowth()
 {
-	float c = GetCurrentDuration();
-	float dt = GetWorld()->GetDeltaSeconds();
+	is_watered = true;
 
-	if (c < plant_data.plant_duration)
-	{
-		c += dt;
-		SetDuration(c);
-	}
-	else
-	{
-		ReachNewStage();
-		SetDuration(0.0f);
-	}
+	GetWorld()->GetTimerManager().SetTimer(growth_timer, this, &APlant::ReachNewStage, plant_data.plant_duration);
 }
 
 void APlant::ReachNewStage()
@@ -64,4 +51,6 @@ void APlant::ReachNewStage()
 		stage += 1;
 		st_mesh->SetStaticMesh(plant_data.mesh_states[stage-1]);
 	}
+
+	OnSmokeBurst.Broadcast();
 }

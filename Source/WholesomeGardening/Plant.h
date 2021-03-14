@@ -28,11 +28,13 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "Mesh")
 	UStaticMeshComponent* st_mesh;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
 	FPlantData plant_data;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
 	EGrowthStage current_growth_stage;
+
+	UPROPERTY()
+	FTimerHandle growth_timer;
 
 	//Init
 	UFUNCTION(BlueprintCallable)
@@ -40,15 +42,16 @@ public:
 
 	//Growth
 	UFUNCTION(BlueprintCallable)
-	void StartGrowth() { is_watered = true; }
+	void StartGrowth();
 	UFUNCTION(BlueprintCallable)
 	void StopGrowth() { is_watered = false; }
 	UFUNCTION()
 	void SetDuration(float _duration) { current_duration = _duration; }
 	UFUNCTION()
-	void ChangeGrowthStage();
-	UFUNCTION()
 	void ReachNewStage();
+
+	UPROPERTY(BlueprintAssignable)
+	FOnSmokeBurst OnSmokeBurst;
 	
 	//Getters
 	UFUNCTION(BlueprintCallable)
