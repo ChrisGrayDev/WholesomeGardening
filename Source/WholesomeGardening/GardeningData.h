@@ -8,6 +8,7 @@
 #include "GardeningData.generated.h"
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSmokeBurst);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnTimerSpawn, float, TimeToFinish);
 
 UENUM(BlueprintType)
 enum class ESoilType : uint8

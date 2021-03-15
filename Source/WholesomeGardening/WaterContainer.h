@@ -40,6 +40,8 @@ public:
 
 	UPROPERTY()
 	FVector start_loc;
+	UPROPERTY(BlueprintAssignable)
+	FOnTimerSpawn OnTimerSpawn;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item")
 	FItemData item_data;

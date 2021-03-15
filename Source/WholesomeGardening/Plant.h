@@ -52,6 +52,8 @@ public:
 
 	UPROPERTY(BlueprintAssignable)
 	FOnSmokeBurst OnSmokeBurst;
+	UPROPERTY(BlueprintAssignable)
+	FOnTimerSpawn OnTimerSpawn;
 	
 	//Getters
 	UFUNCTION(BlueprintCallable)

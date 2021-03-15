@@ -82,6 +82,7 @@ void AWaterContainer::ExtractOneCharge_Implementation()
 	is_extracting = true;
 	
 	GetWorld()->GetTimerManager().SetTimer(extract_timer, this, &AWaterContainer::Extract, extraction_time);
+	OnTimerSpawn.Broadcast(extraction_time);
 }
 
 void AWaterContainer::TeleportToPoint_Implementation(FVector point)

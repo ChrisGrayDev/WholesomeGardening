@@ -36,6 +36,7 @@ void APlant::StartGrowth()
 	is_watered = true;
 
 	GetWorld()->GetTimerManager().SetTimer(growth_timer, this, &APlant::ReachNewStage, plant_data.plant_duration);
+	OnTimerSpawn.Broadcast(plant_data.plant_duration);
 }
 
 void APlant::ReachNewStage()
