@@ -60,8 +60,8 @@ struct FSoilData : public FTableRowBase
 {
 	GENERATED_USTRUCT_BODY()
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
-	UStaticMesh* mesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMaterialInstance* mat;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	ESoilType soil_type;
