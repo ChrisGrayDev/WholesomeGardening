@@ -36,12 +36,17 @@ public:
 
 	UPROPERTY()
 	FVector start_loc;
+	UPROPERTY()
+	ESoilType target_soil;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Time")
 	float hoe_time;
 
 	UPROPERTY(BlueprintReadWrite)
 	bool is_using;
+	
+	UFUNCTION(BlueprintCallable)
+	void SetSoil(ESoilType new_soil) { target_soil = new_soil;  }
 
 	UFUNCTION(BlueprintCallable)
 	void TeleportToPoint(FVector point);
