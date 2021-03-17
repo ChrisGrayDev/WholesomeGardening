@@ -9,18 +9,15 @@ UInventoryCatalogue::UInventoryCatalogue()
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
-
-	// ...
 }
 
 
 // Called when the game starts
 void UInventoryCatalogue::BeginPlay()
 {
+	PopulateInventory();
 	Super::BeginPlay();
-
-	// ...
-	
+	SetCoins(starting_amount_of_coins);
 }
 
 
@@ -28,8 +25,48 @@ void UInventoryCatalogue::BeginPlay()
 void UInventoryCatalogue::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
+}
 
-	// ...
+void UInventoryCatalogue::PopulateInventory()
+{
+	TArray<FItemData*> items;
+	FString context_string;
+
+	if (dt_items == nullptr)
+		return;
+
+	dt_items->GetAllRows(context_string, items);
+
+	if (items.Num() != 0)
+	{
+		for (int i = 0; i < items.Num(); i++)
+		{
+			FInventoryItem new_item;
+			new_item.item_data = *items[i];
+			new_item.quantity = 0;
+
+			inventory_catalogue.Add(new_item);
+		}
+	}
+}
+
+bool UInventoryCatalogue::Withdraw(int amount)
+{
+	bool success = false;
+	int end_amount = GetCoins() - amount;
+	
+	if (end_amount >= 0)
+	{
+		success = true;
+		SetCoins(end_amount);
+	}
+
+	return success;
+}
+
+void UInventoryCatalogue::Deposit(int amount)
+{
+	SetCoins(GetCoins() + amount);
 }
 
 FInventoryItem UInventoryCatalogue::GetItemData(int id)
@@ -53,31 +90,19 @@ bool UInventoryCatalogue::ContainsItem(FString item_name, int& out_id)
 	return false;
 }
 
-void UInventoryCatalogue::AddItem(FInventoryItem new_data)
+void UInventoryCatalogue::AddItem(int id, int amount)
 {
-	int id_existing = 0;
-	if (ContainsItem(new_data.item_data.name, id_existing))
-	{
-		inventory_catalogue[id_existing].quantity += new_data.quantity;
-	}
-	else
-	{
-		inventory_catalogue.Add(new_data);
-	}
+	inventory_catalogue[id].quantity += amount;
 }
 
-void UInventoryCatalogue::RemoveItem(int id)
+void UInventoryCatalogue::RemoveItem(int id, int amount)
 {
 	int quantity = inventory_catalogue[id].quantity;
-	if (quantity == 1)
-		inventory_catalogue.RemoveAt(id);
+	int end_quantity = quantity - amount;
 
-	if (quantity > 1)
-		inventory_catalogue[id].quantity--;
-}
+	if (end_quantity < 0)
+		end_quantity = 0;
 
-void UInventoryCatalogue::RemoveQuantity(int id, int amount)
-{
-	inventory_catalogue[id].quantity -= amount;
+	inventory_catalogue[id].quantity = end_quantity;
 }
 

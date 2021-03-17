@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "GardeningData.h"
+#include "Engine/DataTable.h"
 #include "InventoryCatalogue.generated.h"
 
 
@@ -25,8 +26,24 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Coins")
+	int starting_amount_of_coins;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
+	UDataTable* dt_items;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Inventory")
 	TArray<FInventoryItem> inventory_catalogue;
+
+	UFUNCTION()
+	void PopulateInventory();
+
+	UFUNCTION()
+	void SetCoins(int quantity) { coins = quantity; }
+	UFUNCTION(BlueprintCallable)
+	int GetCoins() { return coins; }
+	UFUNCTION(BlueprintCallable)
+	bool Withdraw(int amount);
+	UFUNCTION(BlueprintCallable)
+	void Deposit(int amount);
 
 	UFUNCTION(BlueprintCallable)
 	FInventoryItem GetItemData(int id);
@@ -34,10 +51,11 @@ public:
 	bool ContainsItem(FString item_name, int& out_id);
 
 	UFUNCTION(BlueprintCallable)
-	void AddItem(FInventoryItem new_data);
+	void AddItem(int id, int amount);
 	UFUNCTION(BlueprintCallable)
-	void RemoveItem(int id);
-	UFUNCTION(BlueprintCallable)
-	void RemoveQuantity(int id, int amount);
-		
+	void RemoveItem(int id, int amount);
+
+private:
+	UPROPERTY()
+	int coins;
 };
