@@ -45,13 +45,28 @@ void APlant::ReachNewStage()
 	if (plant_data.number_of_stages == 2)
 	{
 		stage = (uint8)EGrowthStage::Grown;
+		ready_to_extract = true;
 		st_mesh->SetStaticMesh(plant_data.mesh_states[1]);
+
+		OnDirtDespawn.Broadcast();
 	}
 	else
 	{
 		stage += 1;
 		st_mesh->SetStaticMesh(plant_data.mesh_states[stage-1]);
+
+		if (stage == plant_data.number_of_stages - 1)
+		{
+			OnDirtDespawn.Broadcast();
+			ready_to_extract = true;
+		}
 	}
 
 	OnSmokeBurst.Broadcast();
+}
+
+int APlant::ExtractResources()
+{
+	OnResourceExtract.Broadcast(5);
+	return 5;
 }

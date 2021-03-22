@@ -9,6 +9,7 @@
 
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnSmokeBurst);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnTimerSpawn, float, TimeToFinish);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnResourceExtract, int, AmountOfResources);
 
 UENUM(BlueprintType)
 enum class ESoilType : uint8

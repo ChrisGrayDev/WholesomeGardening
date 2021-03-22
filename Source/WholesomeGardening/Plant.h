@@ -7,9 +7,8 @@
 #include "GardeningData.h"
 #include "Plant.generated.h"
 
-/**
- * 
- */
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnDirtDespawn);
+
 UCLASS()
 class WHOLESOMEGARDENING_API APlant : public AItemBase
 {
@@ -54,7 +53,14 @@ public:
 	FOnSmokeBurst OnSmokeBurst;
 	UPROPERTY(BlueprintAssignable)
 	FOnTimerSpawn OnTimerSpawn;
+	UPROPERTY(BlueprintAssignable)
+	FOnResourceExtract OnResourceExtract;
+	UPROPERTY(BlueprintAssignable)
+	FOnDirtDespawn OnDirtDespawn;
 	
+	UFUNCTION(BlueprintCallable)
+	int ExtractResources();
+
 	//Getters
 	UFUNCTION(BlueprintCallable)
 	bool IsWatered() { return is_watered; }
@@ -62,8 +68,15 @@ public:
 	float GetCurrentDuration() { return current_duration; }
 	UFUNCTION(BlueprintCallable)
 	float GetCurrentDurationPercentage() { return current_duration / plant_data.plant_duration; }
+	UFUNCTION(BlueprintCallable)
+	bool IsReadyToExtract() { return ready_to_extract; }
+	
+	//Setters
+	UFUNCTION()
+	void SetReadyToExtract(bool val) { ready_to_extract = val; }
 
 private:
 	bool is_watered = false;
+	bool ready_to_extract;
 	float current_duration = 0.0f;
 };
