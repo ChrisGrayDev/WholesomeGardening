@@ -67,6 +67,7 @@ void APlant::ReachNewStage()
 
 int APlant::ExtractResources()
 {
-	OnResourceExtract.Broadcast(5);
-	return 5;
+	int resource = FMath::RandRange(plant_data.min_resources, plant_data.max_resources);
+	OnResourceExtract.Broadcast(resource);
+	return resource;
 }

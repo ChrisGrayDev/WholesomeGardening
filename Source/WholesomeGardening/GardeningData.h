@@ -81,6 +81,8 @@ struct FItemData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EItemCategory item_category;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int item_cost;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMaterialInstance* icon;
 };
 
@@ -125,6 +127,10 @@ struct FPlantData : public FTableRowBase
 	int number_of_stages;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float plant_duration;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int min_resources;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int max_resources;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int tile_size;
 }; 
