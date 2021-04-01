@@ -68,6 +68,17 @@ void APlant::ReachNewStage()
 int APlant::ExtractResources()
 {
 	int resource = FMath::RandRange(plant_data.min_resources, plant_data.max_resources);
+	SpawnCoins(resource);
 	OnResourceExtract.Broadcast(resource);
 	return resource;
+}
+
+void APlant::SpawnCoins(int resources)
+{
+	FActorSpawnParameters spawn_params;
+	FTransform spawn_transform;
+	spawn_transform.SetLocation(GetActorLocation());
+
+	ACoinSpawner* coin_spawner = GetWorld()->SpawnActor<ACoinSpawner>(coin_spawner_class, spawn_transform, spawn_params);
+	coin_spawner->InitCoins(GetActorLocation(), resources);
 }
