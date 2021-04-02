@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "ItemBase.h"
+#include "CoinSpawner.h"
 #include "GardeningData.h"
 #include "Plant.generated.h"
 
@@ -31,6 +32,9 @@ public:
 	FPlantData plant_data;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data")
 	EGrowthStage current_growth_stage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Resources")
+	TSubclassOf<ACoinSpawner> coin_spawner_class;
 
 	UPROPERTY()
 	FTimerHandle growth_timer;
@@ -74,6 +78,9 @@ public:
 	//Setters
 	UFUNCTION()
 	void SetReadyToExtract(bool val) { ready_to_extract = val; }
+
+	UFUNCTION()
+	void SpawnCoins(int resources);
 
 private:
 	bool is_watered = false;
