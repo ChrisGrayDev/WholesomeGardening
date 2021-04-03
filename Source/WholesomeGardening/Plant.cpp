@@ -68,6 +68,10 @@ void APlant::ReachNewStage()
 int APlant::ExtractResources()
 {
 	int resource = FMath::RandRange(plant_data.min_resources, plant_data.max_resources);
+
+	if (resource >= plant_data.max_resources)
+		resource += FMath::RoundToInt(plant_data.max_resources / 4);
+
 	SpawnCoins(resource);
 	OnResourceExtract.Broadcast(resource);
 	return resource;
