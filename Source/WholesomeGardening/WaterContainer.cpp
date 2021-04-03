@@ -40,7 +40,15 @@ void AWaterContainer::Extract()
 void AWaterContainer::Refill()
 {
 	current_number_of_charges++;
-	is_refilling = false;
+	if (IsFull())
+	{
+		is_refilling = false;
+		ReturnToPoint();
+	}
+	else
+	{
+		RefillOneCharge();
+	}
 }
 
 void AWaterContainer::SetTargetPlant(APlant* plant)
@@ -82,7 +90,7 @@ void AWaterContainer::ExtractOneCharge_Implementation()
 	is_extracting = true;
 	
 	GetWorld()->GetTimerManager().SetTimer(extract_timer, this, &AWaterContainer::Extract, extraction_time);
-	OnTimerSpawn.Broadcast(extraction_time);
+	//OnTimerSpawn.Broadcast(extraction_time);
 }
 
 void AWaterContainer::TeleportToPoint_Implementation(FVector point)
@@ -100,6 +108,7 @@ void AWaterContainer::RefillOneCharge_Implementation()
 	is_refilling = true;
 	
 	GetWorld()->GetTimerManager().SetTimer(extract_timer, this, &AWaterContainer::Refill, fill_time);
+	OnTimerSpawn.Broadcast(fill_time);
 }
 
 bool AWaterContainer::IsFinishedRecharging_Implementation()

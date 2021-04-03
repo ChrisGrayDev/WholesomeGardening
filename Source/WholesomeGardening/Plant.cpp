@@ -45,6 +45,7 @@ void APlant::ReachNewStage()
 	if (plant_data.number_of_stages == 2)
 	{
 		stage = (uint8)EGrowthStage::Grown;
+		current_growth_stage = (EGrowthStage) stage;
 		ready_to_extract = true;
 		st_mesh->SetStaticMesh(plant_data.mesh_states[1]);
 
@@ -53,12 +54,17 @@ void APlant::ReachNewStage()
 	else
 	{
 		stage += 1;
+		current_growth_stage = (EGrowthStage) stage;
 		st_mesh->SetStaticMesh(plant_data.mesh_states[stage-1]);
 
-		if (stage == plant_data.number_of_stages - 1)
+		if (current_growth_stage == EGrowthStage::Grown)
 		{
 			OnDirtDespawn.Broadcast();
 			ready_to_extract = true;
+		}
+		else
+		{
+			StopGrowth();
 		}
 	}
 
