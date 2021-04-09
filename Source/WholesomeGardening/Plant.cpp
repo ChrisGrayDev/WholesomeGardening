@@ -45,6 +45,7 @@ void APlant::ReachNewStage()
 	if (plant_data.number_of_stages == 2)
 	{
 		stage = (uint8)EGrowthStage::Grown;
+		current_growth_stage = (EGrowthStage) stage;
 		ready_to_extract = true;
 		st_mesh->SetStaticMesh(plant_data.mesh_states[1]);
 
@@ -53,12 +54,17 @@ void APlant::ReachNewStage()
 	else
 	{
 		stage += 1;
+		current_growth_stage = (EGrowthStage) stage;
 		st_mesh->SetStaticMesh(plant_data.mesh_states[stage-1]);
 
-		if (stage == plant_data.number_of_stages - 1)
+		if (current_growth_stage == EGrowthStage::Grown)
 		{
 			OnDirtDespawn.Broadcast();
 			ready_to_extract = true;
+		}
+		else
+		{
+			StopGrowth();
 		}
 	}
 
@@ -68,6 +74,10 @@ void APlant::ReachNewStage()
 int APlant::ExtractResources()
 {
 	int resource = FMath::RandRange(plant_data.min_resources, plant_data.max_resources);
+
+	if (resource >= plant_data.max_resources)
+		resource += FMath::RoundToInt(plant_data.max_resources / 4);
+
 	SpawnCoins(resource);
 	OnResourceExtract.Broadcast(resource);
 	return resource;

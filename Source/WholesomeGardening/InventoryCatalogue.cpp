@@ -83,7 +83,11 @@ bool UInventoryCatalogue::ContainsItem(FString item_name, int& out_id)
 		if (inventory_catalogue[i].item_data.name == item_name)
 		{
 			out_id = i;
-			return true;
+
+			if (inventory_catalogue[i].quantity == 0)
+				return false;
+			else
+				return true;
 		}
 	}
 
